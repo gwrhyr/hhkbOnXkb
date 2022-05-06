@@ -1,0 +1,23 @@
+#!/bin/sh
+# Get current directory
+CURRENT=$(cd $(dirname $0);pwd)
+
+# Create directories
+if [ ! -d ~/.xkb ] ; then
+   mkdir ~/.xkb/keymap ~/.xkb/symbols
+fi
+
+if [ ! -d ~/.config/autostart ] ; then
+   mkdir ~/.config/autostart
+fi
+
+# Create keymap
+setxkbmap -print > ~/.xkb/keymap/hhkb.xkb
+
+# Add '+hhkb(kana_eisu)' at the end of 'xkb_symbols'
+if [ -f ~/.xkb/keymap/hhkb.xkb ] ; then
+  grep 'xkb_symbols' ~/.xkb/keymap/hhkb.xkb | sed 's/^.*"\s.*$/+hhkb(kana_eisu)"/'
+fi
+
+# Copy config-application file
+cp $CURRENT/hhkb ~/.xkb/symbols/hhkb; cp $CURRENT/onhhkb ~/.xkb/onhhkb; cp $CURRENT/onhhkb.desktop ~/.config/autostart/onhhkb.desktop

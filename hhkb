@@ -1,0 +1,6 @@
+partial modifier_keys
+xkb_symbols "kana_eisu" {
+	// Replace Hangul keys into Kana/Eisu keys
+	replace key <HNGL> {         [        Hiragana ] };
+	replace key <HJCV> {         [     Eisu_toggle ] };
+};

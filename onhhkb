@@ -1,0 +1,8 @@
+#!/bin/sh
+# Get HHKB-Hybrid keyboard id
+kbid=$(xinput | grep 'PFU Limited HHKB-Hybrid' | sort -k 1| head -n 1 | sed -r 's/^.*\s*?id=(\S*)\s*?.*$/\1/' )
+
+# Set keyboard configuration
+if [ -n $kbid ] ; then
+   xkbcomp -i $kbid -I$HOME/.xkb $HOME/.xkb/keymap/hhkb.xkb $DISPLAY
+fi
