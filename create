@@ -4,11 +4,11 @@ CURRENT=$(cd $(dirname $0);pwd)
 
 # Create directories
 if [ ! -d ~/.xkb ] ; then
-   mkdir ~/.xkb/keymap ~/.xkb/symbols
+   mkdir -p ~/.xkb/keymap ~/.xkb/symbols
 fi
 
 if [ ! -d ~/.config/autostart ] ; then
-   mkdir ~/.config/autostart
+   mkdir -p ~/.config/autostart
 fi
 
 # Create keymap
@@ -16,7 +16,7 @@ setxkbmap -print > ~/.xkb/keymap/hhkb.xkb
 
 # Add '+hhkb(kana_eisu)' at the end of 'xkb_symbols'
 if [ -f ~/.xkb/keymap/hhkb.xkb ] ; then
-  grep 'xkb_symbols' ~/.xkb/keymap/hhkb.xkb | sed 's/^.*"\s.*$/+hhkb(kana_eisu)"/'
+ sed -i 's/\(^.*xkb_symbols.*\)\("\s.*$\)/\1+hhkb(kana_eisu)\2/' ~/.xkb/keymap/hhkb.xkb
 fi
 
 # Copy config-application file
